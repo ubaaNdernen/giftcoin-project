@@ -1,20 +1,29 @@
 import React from "react";
-// import {
-//   BrowserRouter as Router,
-//   Route,
-//   Routes,
-//   Navigate,
-// } from "react-router-dom";
-import Home from "./components/Home";
-// import User from "./components/User";
-import WalletContextProvider from "./components/walletConnect";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "@/components/Home";
+import WalletContextProvider from "@/components/walletConnect";
+import { Header } from "./components/Header";
+import { Features } from "./components/Features";
+import { Footer } from "./components/Footer";
 
 const App: React.FC = () => {
   return (
     <WalletContextProvider>
-      <div className="bg-black">
-        <Home />
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="relative min-h-screen bg-[#0A0B1E]">
+                <Header />
+                <Features />
+                <Footer />
+              </div>
+            }
+          />
+          <Route path="/home" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
     </WalletContextProvider>
   );
 };

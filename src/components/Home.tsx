@@ -1,11 +1,10 @@
+// filepath: /react-vite-app/react-vite-app/src/components/Home.tsx
 import React from "react";
-import { CustomWalletMultiButton } from "./walletConnect";
 
 const Home: React.FC = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-black">
-      <h1 className="text-4xl font-bold text-white">Home page</h1>
-      <CustomWalletMultiButton />
+    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+      <h1 className="text-white text-4xl font-bold">Welcome to the Home Page</h1>
     </div>
   );
 };
