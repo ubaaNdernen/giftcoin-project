@@ -1,11 +1,11 @@
-import React, { useState, ChangeEvent } from 'react';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import { ConnectionProvider, WalletProvider, useWallet } from '@solana/wallet-adapter-react';
 import {
   WalletModalProvider,
   WalletMultiButton
 } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl } from '@solana/web3.js';
+import { clusterApiUrl, Connection} from '@solana/web3.js';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 const network = clusterApiUrl('devnet');
@@ -17,8 +17,27 @@ export default function App(): JSX.Element {
   const [selectedToken, setSelectedToken] = useState<string>('SOL'); // Default token is SOL
   const [giftType, setGiftType] = useState<string>('Crypto'); // Default gift type is Crypto
   const [message, setMessage] = useState<string>(''); // State for success or failure message
-  const [userBalance, setUserBalance] = useState<number>(1000); // Simulated user balance
+  const [userBalance, setUserBalance] = useState<number>(0); // Wallet balance
   const feeRate = 0.05; // 5% fee
+
+  const wallet = useWallet();
+  const connection = new Connection(network);
+
+  // Fetch wallet balance when the wallet is connected
+  useEffect(() => {
+    const fetchBalance = async () => {
+      if (wallet.publicKey) {
+        try {
+          const balance = await connection.getBalance(wallet.publicKey);
+          setUserBalance(balance / 1e9); // Convert lamports to SOL
+        } catch (error) {
+          console.error('Error fetching wallet balance:', error);
+        }
+      }
+    };
+
+    fetchBalance();
+  }, [wallet.publicKey, connection]);
 
   const handleGift = async (): Promise<void> => {
     if (giftType === 'Crypto') {
@@ -227,8 +246,7 @@ export default function App(): JSX.Element {
 
                 {/* Success or Failure Message */}
                 {message && (
-                  <div className={`mt-4 font-semibold ${message.includes("completed") ? "text-green-600" : "text-red-600"}`}>*
-                  
+                  <div className={`mt-4 font-semibold ${message.includes("completed") ? "text-green-600" : "text-red-600"}`}>
                     {message}
                   </div>
                 )}
