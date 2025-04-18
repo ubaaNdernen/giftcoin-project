@@ -7,16 +7,17 @@ export default {
   ],
   theme: {
   	extend: {
-  		colors: {
-  			background: 'var(--background)',
-  			primary: 'var(--primary)',
-  			secondary: 'var(--secondary)',
-  			heading: 'var(--heading)',
-  			accent: 'var(--accent)',
-  			border: 'var(--primary)',
-  			input: 'var(--input)',
-  		}
-  	},
+      colors: {
+        purple: {
+          900: '#4C1D95',
+        },
+        indigo: {
+          900: '#312E81',
+          600: '#4F46E5',
+          500: '#6366F1',
+        },
+      },
+    },
     backgroundSize: {
       'auto': 'auto',
       'cover': 'cover',

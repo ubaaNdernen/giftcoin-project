@@ -5,13 +5,12 @@ import {
   WalletProvider,
   useWallet as useSolanaWallet,
 } from "@solana/wallet-adapter-react";
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 import {
   WalletModalProvider,
   WalletMultiButton,
 } from "@solana/wallet-adapter-react-ui";
-import { clusterApiUrl } from "@solana/web3.js";
+import { Connection } from "@solana/web3.js";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { WalletContextState } from "@solana/wallet-adapter-react";
 
@@ -27,7 +26,7 @@ export const CustomWalletMultiButton = () => {
   const wallet = useSolanaWallet();
 
   // Conditionally render button text based on connection state
-  const buttonText = wallet.connected ? null : "Signup";
+  const buttonText = wallet.connected ? null : "CONNECT TO SOLANA";
 
   return (
     <WalletMultiButton style={connectButtonStyles}>
@@ -38,21 +37,24 @@ export const CustomWalletMultiButton = () => {
 
 // Button styles
 const connectButtonStyles: React.CSSProperties = {
-  backgroundColor: "#0B3E1E", // Bootstrap 'primary' color
+  backgroundColor: "#005A8C", // Bootstrap 'primary' color
   color: "#fff",
-  padding: "0.1rem 0.15rem",
-  border: "1px solid antiquewhite",
-  borderRadius: "4px",
-  fontSize: "0.875rem",
+  padding: "0.5rem 1rem",
+  border: "2px solid antiquewhite",
+  borderRadius: "5px",
+  fontSize: "1rem",
   cursor: "pointer",
-  marginLeft: "0.75rem",
+  marginLeft: "1rem",
 };
 
 const WalletContextProvider: React.FC<WalletContextProviderProps> = ({
   children,
 }) => {
-  const network = WalletAdapterNetwork.Devnet;
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  const network = new Connection(
+    "https://hidden-broken-yard.solana-mainnet.quiknode.pro/7fef0c379b4a84c33cf93ab6d9ada7a5916eba9b"
+  );
+  const endpoint =
+    "https://hidden-broken-yard.solana-mainnet.quiknode.pro/7fef0c379b4a84c33cf93ab6d9ada7a5916eba9b"; // useMemo(() => network, [network]);
 
   const wallets = useMemo(() => [new PhantomWalletAdapter()], [network]);
 
