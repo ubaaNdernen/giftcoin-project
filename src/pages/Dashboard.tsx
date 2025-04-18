@@ -20,6 +20,7 @@ export default function Dashboard() {
   const handleGift = (type: string) => {
     setLoyaltyPoints((prev) => prev + 10);
     setAnimatePoints(true);
+    console.log(`Gifted ${type} with 10 points!`);
     setTimeout(() => setAnimatePoints(false), 500);
   };
 
