@@ -65,16 +65,16 @@ export const invokeGiftToken = async (
 
       // sign the transaction
       // Sign the transaction using the wallet adapter
-      const signedTx = await wallet.signTransaction(transaction);
+      // const signedTx = await wallet.signTransaction(transaction);
 
-      // Submit the signed transaction
-      const txId = await connection.sendRawTransaction(signedTx.serialize(), {
-        skipPreflight: true,
-      });
+      // // Submit the signed transaction
+      // const txId = await connection.sendRawTransaction(signedTx.serialize(), {
+      //   skipPreflight: true,
+      // });
 
-      await connection.confirmTransaction(txId, "confirmed");
+      // await connection.confirmTransaction(txId, "confirmed");
 
-      console.log(`Transaction successful: ${txId}`);
+      // console.log(`Transaction successful: ${txId}`);
       return true;
     } catch (error) {
       console.error("Gift token transfer failed:", error);
