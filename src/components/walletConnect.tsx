@@ -37,7 +37,7 @@ export const CustomWalletMultiButton = () => {
 
 // Button styles
 const connectButtonStyles: React.CSSProperties = {
-  backgroundColor: "#005A8C", // Bootstrap 'primary' color
+  backgroundColor: "#832c2c", // Bootstrap 'primary' color
   color: "#fff",
   padding: "0.5rem 1rem",
   border: "2px solid antiquewhite",

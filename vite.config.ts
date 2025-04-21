@@ -6,6 +6,15 @@ import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfil
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://vendor.airbillspay.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  },
   plugins: [react()],
   define: {
     'process.env.ANCHOR_BROWSER': true

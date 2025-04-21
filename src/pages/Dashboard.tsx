@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CustomWalletMultiButton } from "@/components/walletConnect";
 import { AnimatedPoints } from "@/components/ui/point";
+import { wavyitem, flatgift, beads, pendant } from "@/images";
+import { useNavigate } from "react-router-dom";
 
 const items = [
   { id: 1, name: "Mystery Item 1", img: "/item.png" },
@@ -14,61 +15,98 @@ const items = [
 ];
 
 export default function Dashboard() {
-  const [loyaltyPoints, setLoyaltyPoints] = useState(200);
-  const [animatePoints, setAnimatePoints] = useState(false);
+  const [loyaltyPoints, _setLoyaltyPoints] = useState(200);
+  const [animatePoints, _setAnimatePoints] = useState(false);
+  const navigate = useNavigate();
 
-  const handleGift = (type: string) => {
-    setLoyaltyPoints((prev) => prev + 10);
-    setAnimatePoints(true);
-    console.log(`Gifted ${type} with 10 points!`);
-    setTimeout(() => setAnimatePoints(false), 500);
+  // navigation handlers
+  const handleGiftAirtime = (e: React.MouseEvent) => {
+    e.preventDefault();
+    console.log("Navigating to gift-airtime");
+    navigate("/gift-airtime", { replace: true });
+  };
+
+  const handleGiftToken = (e: React.MouseEvent) => {
+    e.preventDefault();
+    console.log("Navigating to gift-token");
+    navigate("/gift-token", { replace: true });
+  };
+
+  const handleGiftStore = (e: React.MouseEvent) => {
+    e.preventDefault();
+    console.log("Navigating to gift-store");
+    navigate("/gift-store", { replace: true });
   };
 
   return (
-    // <div className="min-h-screen bg-gradient-to-b from-purple-900 to-indigo-900">
-    <div className="min-h-screen bg-black">
-      {/* Header with wallet connection */}
-      <div className="fixed top-0 left-0 right-0 flex justify-between items-center p-4 z-10 bg-purple-900/50 backdrop-blur-sm">
-        <h1 className="text-2xl font-bold text-white">Itiza</h1>
-        <CustomWalletMultiButton />
+    <div className="min-h-screen h-screen overflow-x-auto overflow-y-hidden relative bg-gradient-to-b from-[#fce8e6] via-[#fbd9db] to-[#f9f1ec]">
+      {/* Background Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <img
+          src={wavyitem}
+          alt="Wavy fabric"
+          className="absolute top-0 right-0 w-64 opacity-30 blur-sm transform scale-110 rotate-6"
+        />
+        <img
+          src={flatgift}
+          alt="Gift box"
+          className="absolute bottom-4 left-4 w-40 opacity-40 blur-[1px]"
+        />
+        <img
+          src={pendant}
+          alt="Pendant"
+          className="absolute top-10 left-6 w-24 opacity-30 rotate-12 blur-sm"
+        />
+        <img
+          src={beads}
+          alt="Pearls"
+          className="absolute bottom-6 right-6 w-28 opacity-30 blur-sm"
+        />
       </div>
 
-      {/* Main card */}
-      <div className="min-h-screen pt-20 px-4">
-        <div className="max-w-lg mx-auto h-[calc(100vh-6rem)] bg-white/10 backdrop-blur-lg rounded-3xl p-6 shadow-xl overflow-y-auto">
-          {/* Balance section */}
+      {/* Main content */}
+      <div className="min-h-screen pt-20 px-4 relative z-1">
+        <div className="max-w-lg mx-auto h-[calc(100vh-6rem)] bg-white/30 backdrop-blur-xl rounded-3xl p-6 shadow-2xl overflow-y-auto">
+          {/* Balance */}
           <div className="space-y-3 mb-6">
             <div className="flex justify-between items-center">
-              <h2 className="text-white/90 font-medium">Your Balance</h2>
+              <h2 className="text-[#832c2c]/90 font-medium">Your Balance</h2>
               <AnimatedPoints points={loyaltyPoints} animate={animatePoints} />
             </div>
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl p-6 text-center">
-              <span className="text-3xl font-bold text-white">$1,000</span>
+            <div className="bg-gradient-to-r from-[#f6c1c1] to-[#fbe9e7] rounded-2xl p-6 text-center shadow">
+              <span className="text-3xl font-bold text-[#832c2c]">$1,000</span>
             </div>
           </div>
 
-          {/* Action buttons */}
+          {/* Buttons */}
           <div className="grid grid-cols-2 gap-4 mb-6">
             <Button
-              onClick={() => handleGift("airtime")}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl py-3 font-medium transition-all"
+              onClick={handleGiftAirtime}
+              type="button"
+              className="bg-[#e47a7a] hover:bg-[#d76666] text-white rounded-xl py-3 font-medium transition-all shadow-md"
             >
               Gift Airtime
             </Button>
             <Button
-              onClick={() => handleGift("crypto")}
-              className="bg-purple-600 hover:bg-purple-700 text-white rounded-xl py-3 font-medium transition-all"
+              onClick={handleGiftToken}
+              className="bg-[#f4b6b6] hover:bg-[#f09090] text-white rounded-xl py-3 font-medium transition-all shadow-md"
             >
-              Gift Crypto
+              Gift Token
+            </Button>
+            <Button
+              onClick={handleGiftStore}
+              className="col-span-2 bg-[#e47a7a] hover:bg-[#d76666] text-white rounded-xl py-3 font-medium transition-all shadow-md"
+            >
+              Gift Store
             </Button>
           </div>
 
-          {/* Mystery items grid */}
+          {/* Items */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {items.map((item) => (
               <Card
                 key={item.id}
-                className="bg-white/5 hover:bg-white/10 transition-all cursor-pointer border-0"
+                className="bg-white/20 hover:bg-white/30 transition-all cursor-pointer border-0 shadow-sm rounded-xl"
               >
                 <CardContent className="p-3">
                   <img
@@ -76,7 +114,7 @@ export default function Dashboard() {
                     alt={item.name}
                     className="w-full h-24 object-cover rounded-lg"
                   />
-                  <p className="text-white/80 text-sm mt-2 text-center">
+                  <p className="text-[#832c2c]/80 text-sm mt-2 text-center">
                     {item.name}
                   </p>
                 </CardContent>

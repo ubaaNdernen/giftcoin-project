@@ -11,9 +11,9 @@ export const AnimatedPoints: React.FC<AnimatedPointsProps> = ({
 }) => {
   return (
     <div className="relative">
-      {/* Orbiting rings */}
+      {/* Orbiting rings - soft pinks/rose hues */}
       <motion.div
-        className="absolute inset-0 border-2 border-indigo-500/30 rounded-full"
+        className="absolute inset-0 border-2 border-[#f4b6b6]/40 rounded-full"
         animate={{
           rotate: 360,
           scale: [1, 1.1, 1],
@@ -26,7 +26,7 @@ export const AnimatedPoints: React.FC<AnimatedPointsProps> = ({
         }}
       />
       <motion.div
-        className="absolute inset-0 border-2 border-purple-500/20 rounded-full"
+        className="absolute inset-0 border-2 border-[#f6dede]/30 rounded-full"
         animate={{
           rotate: -360,
           scale: [1.1, 1.2, 1.1],
@@ -39,18 +39,18 @@ export const AnimatedPoints: React.FC<AnimatedPointsProps> = ({
         }}
       />
 
-      {/* Points button */}
+      {/* Points bubble - blush to rose gold */}
       <motion.div
-        className="relative z-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full px-6 py-2 shadow-lg shadow-indigo-500/20"
+        className="relative z-10 bg-gradient-to-r from-[#f4b6b6] to-[#fce8e6] rounded-full px-6 py-2 shadow-lg shadow-rose-200"
         animate={{
           scale: animate ? [1, 1.1, 1] : 1,
           boxShadow: animate
             ? [
-                "0 10px 15px -3px rgb(99 102 241 / 0.2)",
-                "0 15px 20px -3px rgb(99 102 241 / 0.3)",
-                "0 10px 15px -3px rgb(99 102 241 / 0.2)",
+                "0 10px 15px -3px rgba(244,182,182,0.3)",
+                "0 15px 20px -3px rgba(252,232,230,0.4)",
+                "0 10px 15px -3px rgba(244,182,182,0.3)",
               ]
-            : "0 10px 15px -3px rgb(99 102 241 / 0.2)",
+            : "0 10px 15px -3px rgba(244,182,182,0.3)",
         }}
         transition={{
           duration: 0.5,
@@ -58,14 +58,14 @@ export const AnimatedPoints: React.FC<AnimatedPointsProps> = ({
         }}
       >
         <div className="relative flex items-center space-x-2">
-          <span className="text-white font-bold">{points}</span>
-          <span className="text-white/90">Points</span>
+          <span className="text-[#832c2c] font-bold">{points}</span>
+          <span className="text-[#832c2c]/80">Points</span>
 
-          {/* Glow effect */}
+          {/* Subtle inner glow */}
           <motion.div
-            className="absolute inset-0 bg-white/10 rounded-full blur-md"
+            className="absolute inset-0 bg-white/20 rounded-full blur-md"
             animate={{
-              opacity: [0.5, 0.8, 0.5],
+              opacity: [0.4, 0.7, 0.4],
             }}
             transition={{
               duration: 2,

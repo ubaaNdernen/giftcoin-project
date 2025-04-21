@@ -1,7 +1,9 @@
 import { getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
 import { WalletContextState } from "@solana/wallet-adapter-react";
 import { Connection, PublicKey, Signer } from "@solana/web3.js";
-import { sendGiftToken } from "framp-relay-sdk";
+import { FrampRelayer } from "framp-relay-sdk";
+const AIRBILLS_SECRET_KEY = import.meta.env.VITE_PUBLIC_AIRBILLS_SECRET_KEY;
+const SOLSCAN_API_KEY = import.meta.env.VITE_PUBLIC_SOLSCAN_API_KEY;
 
 export const invokeGiftToken = async (
     connection: Connection,
@@ -46,7 +48,13 @@ export const invokeGiftToken = async (
       //     transaction: VersionedTransaction;
       //     txBase64: string;
       // }>
-      const { transaction } = await sendGiftToken({
+      // Initialize Framp Relayer
+      const relayer = new FrampRelayer({
+        solscanApiKey: SOLSCAN_API_KEY,
+        airbillsSecretKey: AIRBILLS_SECRET_KEY,
+      });
+
+      const { transaction } = await relayer.giftToken({
         walletPublicKey: wallet.publicKey,
         recipient: recipientATA.address.toBase58(),
         amount: giftAmount,
